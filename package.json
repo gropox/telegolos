@@ -1,0 +1,24 @@
+{
+  "name": "telegolos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "telegolos.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gropox/telegolos.git"
+  },
+  "author": "Георгий Савчук",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gropox/telegolos/issues"
+  },
+  "homepage": "https://github.com/gropox/telegolos#readme",
+  "dependencies": {
+    "golos-addons": "^1.0.8",
+    "golos-js": "^0.5.21",
+    "telebot": "^1.2.3"
+  }
+}
