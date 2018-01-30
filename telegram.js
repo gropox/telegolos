@@ -9,8 +9,18 @@ const log = global.getLogger("telegram");
 
 let bot = null;
 
+function buildMenuKbd() {
+    return bot.inlineKeyboard([
+        [bot.inlineButton(m.telegolos.transferMenu(), { callback: m.telegolos.transferMenu() })],
+    ]);
+}
+
+module.exports.buildMenuKbd = buildMenuKbd;
+
 async function send(chat_id, msg, kbd) {
     let opts = { parse: "Markdown" };
+    log.debug("msg", msg);
+    log.debug("kbd", kbd);
     if (kbd) {
         opts.markup = kbd;
     }

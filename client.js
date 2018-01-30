@@ -6,6 +6,7 @@ const COMMANDS = {
     START: "/start",
     TRANSFER: "/transfer",
     MENU: "/menu",
+    CANCEL: "/cancel",
     HELP: "/help"
 }
 
@@ -16,7 +17,7 @@ class Client {
     }
 
     async _doHelp() {
-        await telegram.send(this.chat_id, m.telegolos.help());
+        await telegram.send(this.chat_id, m.telegolos.help(), telegram.buildMenuKbd() );
     }
 
     async processInput(msg) {
@@ -26,7 +27,13 @@ class Client {
                 this.processor = new Transfer();
                 await this.processor.sendMessage(this.chat_id);
             } break;
+            case COMMANDS.CANCEL:
+                this.processor = null;
+                await telegram.send(this.chat_id, m.telegolos.cancel());
+                await this._doHelp();
+                break;
             case COMMANDS.MENU:
+            case COMMANDS.START:
             case COMMANDS.HELP: {
                 await this._doHelp();
             } break;
@@ -34,11 +41,21 @@ class Client {
                 if (this.processor) {
                     if(await this.processor.processInput(this.chat_id, msg)) {
                         this.processor = null;
+                        await this._doHelp();
                     } else {
                         await this.processor.sendMessage(this.chat_id);
                     }
                 } else {
-                    await this._doHelp();
+                    //Скорее всего был выбран пункт меню
+                    switch (msg) {
+                        case m.telegolos.transferMenu():
+                            {
+                                this.processor = new Transfer();
+                                await this.processor.sendMessage(this.chat_id);
+                            } break;
+                        default:
+                            await this._doHelp();
+                    }
                 }
         }
     }
