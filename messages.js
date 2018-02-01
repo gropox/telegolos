@@ -16,7 +16,9 @@ module.exports.transfer = {
     done: () => `Перевод выполнен`,
     cancel: () => `Перевод был отменен`,
     summary: (tr) => `Перевод *${tr.amount.toFixed(3) + " GBG"}* от *${tr.from}* к *${tr.to}*
-Заметка: \`\`\`"${tr.memo}"\`\`\`
+Заметка:
+${tr.memo}
+
 Выполнить перевод?
 `,
     missing_authority: (tr) => `Нет прав на перевод монет. Введен активный ключ?`

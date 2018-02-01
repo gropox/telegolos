@@ -90,6 +90,7 @@ class Transfer {
             case STATES.MEMO:
                 { 
                     this.memo = msg;
+                    log.debug("memo", this.memo);
                     return {ok:true};
                 }
             case STATES.WIF:
